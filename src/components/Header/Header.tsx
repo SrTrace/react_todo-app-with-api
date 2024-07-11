@@ -31,15 +31,15 @@ export const Header: React.FC<HeaderProps> = ({
     }
   }, [submitting]);
 
-  function handleTodoTitle(e: React.ChangeEvent<HTMLInputElement>) {
+  const handleTodoTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodoTitle(e.target.value);
-  }
+  };
 
-  function handleReset() {
+  const handleReset = () => {
     setTodoTitle('');
-  }
+  };
 
-  function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const trimmedTitle = todoTitle.trim();
@@ -74,9 +74,9 @@ export const Header: React.FC<HeaderProps> = ({
         onTempTodo(null);
       })
       .finally(() => setSubmitting(false));
-  }
+  };
 
-  function handleToggleAll() {
+  const handleToggleAll = () => {
     let toggledTodos: Todo[] = [];
 
     if (todos.length === numOfCompletedTodos || numOfCompletedTodos === 0) {
@@ -114,7 +114,7 @@ export const Header: React.FC<HeaderProps> = ({
         });
       })
       .finally(() => setSubmitting(false));
-  }
+  };
 
   return (
     <header className="todoapp__header">

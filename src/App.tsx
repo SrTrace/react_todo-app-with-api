@@ -17,7 +17,7 @@ export const App: React.FC = () => {
   const [numOfCompletedTodos, setNumOfCompletedTodos] = useState(0);
   const [numOfActiveTodos, setNumOfActiveTodos] = useState(0);
 
-  function countStatusesOfTodos() {
+  const countStatusesOfTodos = () => {
     const activeTodos = todos.reduce(
       (count, todo) => count + (todo.completed ? 0 : 1),
       0,
@@ -25,7 +25,7 @@ export const App: React.FC = () => {
 
     setNumOfActiveTodos(activeTodos);
     setNumOfCompletedTodos(todos.length - activeTodos);
-  }
+  };
 
   useEffect(countStatusesOfTodos, [
     todos,
@@ -33,11 +33,11 @@ export const App: React.FC = () => {
     numOfActiveTodos,
   ]);
 
-  function handleSetStatus(e: React.MouseEvent<HTMLElement>) {
+  const handleSetStatus = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
 
     setSelectedStatus(target.textContent as SelectedStatus);
-  }
+  };
 
   useEffect(() => {
     getTodos()
@@ -55,31 +55,31 @@ export const App: React.FC = () => {
     return () => clearTimeout(timerId);
   }, [errorMessage]);
 
-  function changeTodo(newTodo: Todo) {
+  const changeTodo = (newTodo: Todo) => {
     setTodos(prevTodos =>
       prevTodos.map(todo =>
         todo.id === newTodo.id ? { ...todo, ...newTodo } : todo,
       ),
     );
-  }
+  };
 
-  function addTodo(newTodo: Todo) {
+  const addTodo = (newTodo: Todo) => {
     setTodos(currentTodos => [...currentTodos, newTodo]);
 
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }
+  };
 
-  function deleteTodo(todoId: number) {
+  const deleteTodo = (todoId: number) => {
     setTodos(currentTodos => currentTodos.filter(todo => todo.id !== todoId));
 
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }
+  };
 
-  function deleteAllCompletedTodo(todosToDelete: Todo[]) {
+  const deleteAllCompletedTodo = (todosToDelete: Todo[]) => {
     setTodos(currentTodos =>
       currentTodos.filter(todo => !todosToDelete.includes(todo)),
     );
@@ -87,9 +87,9 @@ export const App: React.FC = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }
+  };
 
-  function toggleAllCompletedTodo(todosToToggle: Todo[]) {
+  const toggleAllCompletedTodo = (todosToToggle: Todo[]) => {
     setTodos(prevTodos => {
       return prevTodos.map(todo => {
         const toggledTodo = todosToToggle.find(t => t.id === todo.id);
@@ -97,7 +97,7 @@ export const App: React.FC = () => {
         return toggledTodo ? toggledTodo : todo;
       });
     });
-  }
+  };
 
   if (!USER_ID) {
     return <UserWarning />;

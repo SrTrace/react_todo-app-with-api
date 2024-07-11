@@ -26,7 +26,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
 
-  function handleDeleteTodo(todoId: number) {
+  const handleDeleteTodo = (todoId: number) => {
     setIsLoading(true);
 
     deleteTodo(todoId)
@@ -41,9 +41,9 @@ export const TodoItem: React.FC<TodoItemProps> = ({
         onErrorMessage('Unable to delete a todo');
       })
       .finally(() => setIsLoading(false));
-  }
+  };
 
-  function handleChangeTodo(todoId: number, newTodoProp: string) {
+  const handleChangeTodo = (todoId: number, newTodoProp: string) => {
     setIsLoading(true);
 
     const updatedTodo: Todo = {
@@ -71,24 +71,24 @@ export const TodoItem: React.FC<TodoItemProps> = ({
         onErrorMessage('Unable to update a todo');
       })
       .finally(() => setIsLoading(false));
-  }
+  };
 
-  function handleDbClick() {
+  const handleDbClick = () => {
     setIsEditing(true);
-  }
+  };
 
-  function handleEdit(e: React.ChangeEvent<HTMLInputElement>) {
+  const handleEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
-  }
+  };
 
-  function handleKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Escape') {
       setNewTitle(title);
       setIsEditing(false);
     }
-  }
+  };
 
-  function handleBlur() {
+  const handleBlur = () => {
     const trimNewTitle = newTitle.trim();
 
     if (!trimNewTitle) {
@@ -98,9 +98,9 @@ export const TodoItem: React.FC<TodoItemProps> = ({
     }
 
     handleChangeTodo(id, 'title');
-  }
+  };
 
-  function handleSubmitNewTitle(e: React.FormEvent) {
+  const handleSubmitNewTitle = (e: React.FormEvent) => {
     e.preventDefault();
 
     const trimNewTitle = newTitle.trim();
@@ -118,7 +118,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
     }
 
     handleChangeTodo(id, 'title');
-  }
+  };
 
   return (
     <div data-cy="Todo" className={cn('todo', { completed: completed })}>

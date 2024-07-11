@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({
   numOfActiveTodos,
   numOfCompletedTodos,
 }) => {
-  function handleDeleteAllCompletedTodos() {
+  const handleDeleteAllCompletedTodos = () => {
     const completedTodos = todos.filter(todo => todo.completed);
     const deletePromises = completedTodos.map(todo =>
       deleteTodo(todo.id).then(() => todo),
@@ -41,12 +41,12 @@ export const Footer: React.FC<FooterProps> = ({
         }
       });
     });
-  }
+  };
 
   return (
     <>
       {/* Hide the footer if there are no todos */}
-      {todos.length !== 0 && (
+      {!!todos.length && (
         <footer className="todoapp__footer" data-cy="Footer">
           <span className="todo-count" data-cy="TodosCounter">
             {`${numOfActiveTodos} items left`}

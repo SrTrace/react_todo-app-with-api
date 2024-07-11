@@ -20,15 +20,21 @@ export const TodoList: React.FC<TodoListProps> = ({
 }) => {
   let filteredTodos: Todo[] = [];
 
-  if (status === SelectedStatus.all) {
-    filteredTodos = todos;
-  } else if (status === SelectedStatus.active) {
-    filteredTodos = todos.filter(todo => !todo.completed);
-  } else if (status === SelectedStatus.completed) {
-    filteredTodos = todos.filter(todo => todo.completed);
+  switch (status) {
+    case SelectedStatus.all:
+      filteredTodos = todos;
+      break;
+    case SelectedStatus.active:
+      filteredTodos = todos.filter(todo => !todo.completed);
+      break;
+    case SelectedStatus.completed:
+      filteredTodos = todos.filter(todo => todo.completed);
+      break;
+    default:
+      return;
   }
 
-  if (filteredTodos.length === 0) {
+  if (!filteredTodos.length) {
     return null;
   }
 
